@@ -1,28 +1,39 @@
 <template>
 	<!-- 导航栏 -->
-	<view :class="{ 't-navbar-fixed' : fixed , 't-navbar-shadow' : shadow , 't-navbar-border' : border}"
-		class="t-nav-bar">
+	<view :class="{ 't-navbar-fixed' : fixed, 't-navbar-shadow' : shadow , 't-navbar-border' : border}"
+		:style="{ 'background-color': themeBgColor }" class="t-nav-bar">
 		<!-- 状态栏 -->
-		<t-status-bar minHeight="20" />
+		<t-status-bar minHeight="0" />
 		<!-- 内容区域 -->
 		<view class="t-nav-content">
+
 			<!-- 返回按钮 -->
 			<view class="t-nav-left" @click="clickLeft">
-				<t-icons name="icon-back" size="20"></t-icons>
-				<text v-if="leftText.length" :style="{ color: themeColor, fontSize: '12px' }" class="t-nav-left-text">
-					{{ leftText }}
-				</text>
+				<slot name="left">
+					<t-icons name="icon-back" size="20" :color="themeColor"></t-icons>
+					<text v-if="leftText.length" :style="{ color: themeColor, fontSize: '12px' }"
+						class="t-nav-left-text">
+						{{ leftText }}
+					</text>
+				</slot>
 			</view>
+
 			<!-- 标题 -->
 			<view class="t-nav-title" @click="clickTitle">
-				<text v-if="title.length" :style="{ color: themeColor, fontSize: '12px' }"
-					class="t-nav-ellipsis">{{ title }}</text>
+				<slot>
+					<text v-if="title.length" :style="{ color: themeColor, fontSize: '12px' }"
+						class="t-nav-ellipsis">{{ title }}</text>
+				</slot>
 			</view>
+
 			<!-- 右边按钮 -->
 			<view class="t-nav-right" @click="clickRight">
-				<text v-if="rightText.length" :style="{ color: themeColor, fontSize: '12px' }"
-					class="t-nav-right-text">{{ rightText }}</text>
+				<slot name="right">
+					<text v-if="rightText.length" :style="{ color: themeColor, fontSize: '12px' }"
+						class="t-nav-right-text">{{ rightText }}</text>
+				</slot>
 			</view>
+
 		</view>
 	</view>
 </template>
@@ -37,7 +48,7 @@
 		emits: ['clickLeft', 'clickTitle', 'clickRight'],
 		props: {
 			fixed: {
-				type: [Boolean, String],
+				type: Boolean,
 				default: true
 			},
 			dark: {

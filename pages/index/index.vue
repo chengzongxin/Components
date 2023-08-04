@@ -1,7 +1,36 @@
 <template>
 	<view class="content">
-		<t-nav-bar fixed disableAutoBack leftText="返回" title="自定义导航栏自定义导航栏自定义导航栏自定义导航栏自定义导航栏自定义导航栏" rightText="分享"
-			@clickLeft="onClickLeft" @clickTitle="onClickTitle" @clickRight="onClickRight" />
+
+		<t-nav-bar :fixed="true" disableAutoBack leftText="返回" title="自定义导航栏自定义导航栏自定义导航栏自定义导航栏自定义导航栏自定义导航栏"
+			rightText="分享" @clickLeft="onClickLeft" @clickTitle="onClickTitle" @clickRight="onClickRight" border
+			shadow />
+
+		<view class="content-area">
+			<text>暗黑模式</text>
+			<t-nav-bar :fixed="false" title="暗黑模式" dark />
+		</view>
+
+		<view class="content-area">
+			<text>自定义插槽</text>
+			<t-nav-bar :fixed="false">
+				<template #left>
+					<button type="warn">left</button>
+				</template>
+				<template>
+					<button type="default">123456</button>
+				</template>
+				<template #right>
+					<button type="primary">right</button>
+				</template>
+			</t-nav-bar>
+		</view>
+
+
+		<view class="content-area">
+			<text>自定义高度背景</text>
+			<t-nav-bar :fixed="false" title="自定义高度背景" style="background-color: aquamarine;height: 166px;" />
+		</view>
+
 	</view>
 </template>
 
@@ -41,5 +70,37 @@
 <style lang="scss" scoped>
 	.content {
 		height: 2000px;
+		box-sizing: border-box;
+		background-color: $uni-bg-color-grey;
+	}
+
+	.top {
+		// margin-top: 10px;
+	}
+
+	.nav {
+		// margin-top: 100px;
+	}
+
+	.nav-2 {
+		margin-top: 20px;
+	}
+
+	.content-area {
+		padding-top: 60px;
+		overflow: hidden;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-around;
+
+		text {
+			margin-bottom: 10px;
+			font-size: 20px;
+		}
+	}
+
+	.content-area:nth-child(2) {
+		padding-top: 100px;
+		overflow: hidden;
 	}
 </style>
