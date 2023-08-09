@@ -28,8 +28,10 @@
 
 		<view class="content-area">
 			<text>自定义高度背景</text>
-			<t-nav-bar :fixed="false" title="自定义高度背景" style="background-color: aquamarine;height: 166px;" />
+			<t-nav-bar :fixed="false" title="自定义高度背景" rightText="分享" @clickRight="onClickRight" color="blue"
+				background-color="orange" height="66px" />
 		</view>
+
 
 	</view>
 </template>
@@ -38,7 +40,8 @@
 	export default {
 		data() {
 			return {
-				title: 'Hello'
+				title: 'Hello',
+				red: '#FF0000'
 			}
 		},
 		onLoad() {
@@ -57,8 +60,8 @@
 					title: 'onClickTitle'
 				})
 			},
-			onClickRight() {
-				console.log('onClickRight');
+			onClickRight(e) {
+				console.log('onClickRight', e);
 				uni.showToast({
 					title: 'onClickRight'
 				})
@@ -80,6 +83,11 @@
 
 	.nav {
 		// margin-top: 100px;
+	}
+
+	.cus-nav-h {
+		height: 66px;
+		background-color: red;
 	}
 
 	.nav-2 {

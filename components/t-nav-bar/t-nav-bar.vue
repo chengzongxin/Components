@@ -5,7 +5,7 @@
 		<!-- 状态栏 -->
 		<t-status-bar minHeight="0" />
 		<!-- 内容区域 -->
-		<view class="t-nav-content">
+		<view class="t-nav-content" v-height="height">
 
 			<!-- 返回按钮 -->
 			<view class="t-nav-left" @click="clickLeft">
@@ -45,8 +45,38 @@
 		components: {
 			tStatusBar,
 		},
+		directives: {
+			height: {
+				// 1. inserted 提供的是元素被添加到页面中时的逻辑
+				inserted(el, binding) {
+					console.log('指令的值修改了1');
+					// binding.value 就是指令的值
+					el.style.height = binding.value
+				},
+				// 2. update 指令的值修改的时候触发，提供值变化后，dom更新的逻辑
+				update(el, binding) {
+					console.log('指令的值修改了2');
+					el.style.color = binding.value
+				}
+			}
+		},
 		emits: ['clickLeft', 'clickTitle', 'clickRight'],
 		props: {
+			// 	<t-nav-bar :fixed="false" title="xxx" color="blue" background-color="orange" height="66px" />
+			// 接收外部指令 
+			color: {
+				type: String,
+				default: null
+			},
+			backgroundColor: {
+				type: String,
+				default: null
+			},
+			// 内部自定义指令 v-height
+			height: {
+				type: String,
+				default: null
+			},
 			fixed: {
 				type: Boolean,
 				default: true
@@ -119,7 +149,7 @@
 		},
 		methods: {
 			clickLeft(x) {
-				this.$emit('clickLeft')
+				this.$emit('clickLeft', x)
 				if (this.disableAutoBack === false) {
 					uni.navigateBack({
 						delta: 1
@@ -127,10 +157,10 @@
 				}
 			},
 			clickTitle(x) {
-				this.$emit('clickTitle')
+				this.$emit('clickTitle', x)
 			},
 			clickRight(x) {
-				this.$emit('clickRight')
+				this.$emit('clickRight', x)
 			}
 		},
 	}
@@ -168,12 +198,14 @@
 
 	.t-nav-bar {
 		box-sizing: border-box;
-		background-color: skyblue;
 
 
 		.t-nav-content {
 			display: flex;
-			justify-content: space-between;
+			// 在主轴上对齐方式
+			justify-content: center;
+			// 再侧轴上对齐方式
+			align-items: center;
 			margin: 0 10px;
 			text-align: center;
 			height: $nav-bar-height;
@@ -184,11 +216,7 @@
 				justify-content: start;
 				width: 120rpx;
 
-				&-text {
-					display: block;
-					height: $nav-bar-height;
-					line-height: $nav-bar-height;
-				}
+				&-text {}
 			}
 
 			.t-nav-right {
@@ -196,15 +224,10 @@
 				justify-content: space-around;
 				width: 120rpx;
 
-				&-text {
-					display: block;
-					height: $nav-bar-height;
-					line-height: $nav-bar-height;
-				}
+				&-text {}
 			}
 
 			.t-nav-title {
-				// background-color: pink;
 				flex: 1;
 				padding: 0 20rpx;
 				overflow: hidden;
