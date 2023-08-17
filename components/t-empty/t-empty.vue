@@ -20,39 +20,33 @@
 	export default class TEmpty extends Vue {
 
 		@Prop({ default: 'nodata' }) readonly type! : string
+		@Prop({ default: null }) readonly icon ?: string
+		@Prop({ default: null }) readonly text ?: string
+		@Prop({ default: null }) readonly desc ?: string
 
 		typeData : object = typeData
 
 		show : boolean = true
 
 		getIcon() {
-			return this.getValueInTypeData('icon')
+			return this.icon ? this.icon : this.getValueInTypeData('icon')
 		}
 		getText() {
-			return this.getValueInTypeData('text')
+			return this.text ? this.text : this.getValueInTypeData('text')
 		}
 		getDesc() {
-			return this.getValueInTypeData('desc')
+			return this.desc ? this.desc : this.getValueInTypeData('desc')
 		}
 		getValueInTypeData(key : string) {
 			let dict = this.typeData[this.type as keyof typeof this.typeData]
 			return dict[key as keyof typeof dict]
 		}
-
-		// 文本样式
-		textStyle() {
-			const style = {
-				color: '#00ff00'
-			}
-			console.log("style", style)
-			return "{ color: '#00ff00', fontSize: '12px' }"
-		}
 	}
 </script>
 
 <style lang="scss" scoped>
-	$t-empty-text-margin-top: 24px !default;
-	$t-empty-slot-margin-top: 24px !default;
+	$t-empty-text-margin-top: 48rpx !default;
+	$t-empty-slot-margin-top: 48rpx !default;
 
 	.t-empty {
 		display: flex;
@@ -62,8 +56,9 @@
 		min-height: 100vh;
 
 		&__image {
-			width: 100px;
-			height: 100px;
+			margin-top: -300rpx;
+			width: 200rpx;
+			height: 200rpx;
 		}
 
 		&__text,
@@ -72,16 +67,17 @@
 			justify-content: center;
 			align-items: center;
 			margin-top: $t-empty-text-margin-top;
+			font-family: PingFangSC-Regular;
 		}
 
 		&__text {
-			font-size: 14px;
+			font-size: 28rpx;
 			color: #1a1a1a;
 		}
 
 		&__desc {
-			margin-top: 8px;
-			font-size: 14px;
+			margin-top: 16rpx;
+			font-size: 28rpx;
 			color: #aaafbe;
 		}
 
