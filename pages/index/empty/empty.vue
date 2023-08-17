@@ -6,6 +6,7 @@
 			<button type="primary" @tap="show = false">点击重试</button>
 		</t-empty> -->
 		<t-empty type='nonet' v-show="show">
+			<!-- 自定义插槽 -->
 			<button type="primary" @tap="show = false">点击重试</button>
 		</t-empty>
 		<view class="content" v-show="!show">
