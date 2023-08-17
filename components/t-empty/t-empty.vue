@@ -18,7 +18,24 @@
 	import { typeData } from './props'
 	@Component({})
 	export default class TEmpty extends Vue {
-
+		/* 
+		空页面类型：
+			1. 支持使用组件自带样式
+			2. 支持自定义图标，文字样式
+			3. 支持插槽，直接添加所需元素
+			
+		Usage：使用组件内指定类型
+			方法一：
+			使用 type 指定无页面类型，后续在./props扩展
+			nodata：无数据
+			nonet：无网络
+		
+			方法二：
+			自定义icon，text，desc
+			传入自定义数据即可。例如：
+			<t-empty type='nodata' icon="xxx" text="xxx" desc="xxx">
+			</t-empty>
+		 */
 		@Prop({ default: 'nodata' }) readonly type! : string
 		@Prop({ default: null }) readonly icon ?: string
 		@Prop({ default: null }) readonly text ?: string
